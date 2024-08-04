@@ -7,11 +7,10 @@ function App() {
     <>
       <GoogleMapsApi
         onLoad={map => {
-          const bounds = new window.google.maps.LatLngBounds();
-          map.fitBounds(bounds);
+          console.log('Map Loaded:', map);
         }}
         onUnmount={map => {
-          // Do your stuff before the map is unmounted
+          console.log('Map unmounted:', map);
         }}
       />
     </>
