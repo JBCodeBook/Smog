@@ -1,18 +1,20 @@
 import React from 'react';
-import GoogleMapsApi from './components/GoogleMaps';
+import GoogleMapsApi from './components/GoogleMapsApi';
 import './App.css';
+import TestGoogleMaps from './components/TestGoogleMaps';
 
 function App() {
   return (
     <>
-      <GoogleMapsApi
+    <TestGoogleMaps/>
+      {/* <GoogleMapsApi
         onLoad={map => {
           console.log('Map Loaded:', map);
         }}
         onUnmount={map => {
           console.log('Map unmounted:', map);
         }}
-      />
+      /> */}
     </>
   );
 }
