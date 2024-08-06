@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import reactImg from '../assets/investment-calculator-logo.png'
 
 const containerStyle = {
   background: '#1a73e8',
@@ -24,6 +25,9 @@ function TestGoogleMaps({ onLoad = () => {}, onUnmount = () => {} }) {
 
   const [map, setMap] = useState(null);
   const [streetViewVisible, setStreetViewVisible] = useState(false);
+  const [streetViewImageUrl, setStreetViewImageUrl] = useState('');
+
+  const currentPosition = useRef()
 
   const handleMapLoad = useCallback((map) => {
     setMap(map);
@@ -35,10 +39,7 @@ function TestGoogleMaps({ onLoad = () => {}, onUnmount = () => {} }) {
       visible: false,
       addressControl: true,
       enableCloseButton: true,
-      controlSize:100,
-      addressControlOptions: {
-        controlSize: 100,
-      }
+      controlSize: 100,
     });
 
     map.setStreetView(panorama);
@@ -46,6 +47,15 @@ function TestGoogleMaps({ onLoad = () => {}, onUnmount = () => {} }) {
     google.maps.event.addListener(panorama, 'visible_changed', () => {
       const isVisible = panorama.getVisible();
       setStreetViewVisible(isVisible);
+      if (isVisible) {
+        const pov = panorama.getPov();
+        const position = panorama.getPosition();
+        console.log(position.lat(), position.lng())
+        const streetViewImageUrl = reactImg
+        setStreetViewImageUrl(streetViewImageUrl);
+      } else {
+        setStreetViewImageUrl('');
+      }
     });
 
   }, [onLoad]);
@@ -78,6 +88,22 @@ function TestGoogleMaps({ onLoad = () => {}, onUnmount = () => {} }) {
           controlSize: 75,
         }}
       />
+      {streetViewVisible && (
+        <img 
+          src={streetViewImageUrl} 
+          alt="Street View" 
+          style={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            width: '100%', 
+            height: '100%', 
+            zIndex: 10, 
+            opacity: 0.5,
+            pointerEvents: 'none' // Allow clicks to pass through
+          }} 
+        />
+      )}
     </div>
   ) : <div>Loading...</div>;
 }
