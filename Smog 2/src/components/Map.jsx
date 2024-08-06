@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React from 'react';
 import { GoogleMap } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -11,28 +11,19 @@ const initialCenter = {
   lng: -79.389
 };
 
-const Map = ({ onLoad, onUnmount, onClick }) => {
-  const mapRef = useRef(null);
-
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-    map.setCenter(initialCenter);
-    if (onLoad) onLoad(map);
-  }, [onLoad]);
-
-  return (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={initialCenter}
-      zoom={10}
-      onLoad={onMapLoad}
-      onUnmount={onUnmount}
-      onClick={onClick}
-      options={{
-        streetViewControl: true,
-      }}
-    />
-  );
-};
+const Map = ({ onLoad, onUnmount, onClick }) => (
+  <GoogleMap
+    mapContainerStyle={containerStyle}
+    center={initialCenter}
+    zoom={10}
+    onLoad={onLoad}
+    onUnmount={onUnmount}
+    onClick={onClick}
+    options={{
+      streetViewControl: true,
+      controlSize: 100,
+    }}
+  />
+);
 
 export default React.memo(Map);

@@ -9,5 +9,14 @@ export default defineConfig({
       VITE_APP_GOOGLE_MAPS_API_KEY: ''
     })
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
 });
 
