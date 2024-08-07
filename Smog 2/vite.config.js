@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [
     react(),
     EnvironmentPlugin({
-      VITE_APP_GOOGLE_MAPS_API_KEY: ''
+      VITE_APP_GOOGLE_MAPS_API_KEY: '',
+      VITE_APP_GOOGLE_AIR_QUALITY_API_KEY: '' 
     })
   ],
   server: {
@@ -19,4 +20,3 @@ export default defineConfig({
     }
   }
 });
-
