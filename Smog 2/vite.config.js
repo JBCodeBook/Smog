@@ -10,6 +10,9 @@ export default defineConfig({
       VITE_APP_GOOGLE_AIR_QUALITY_API_KEY: '' 
     })
   ],
+  css: {
+    postcss: './postcss.config.js',
+  },
   server: {
     proxy: {
       '/api': {
