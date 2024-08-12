@@ -4,15 +4,34 @@ import CO2Img from "../assets/CO2.png";
 import NO2Img from "../assets/NO2.png";
 import O3Img from "../assets/O3.png";
 import PM10Img from "../assets/PM10.png";
-import useFetchAirQualityData from "./useFetchAirQaulityData";
+import useFetchAirQualityData from "./useFetchAirQualityData";
+import PollutantDisplayComponent from "./PollutantDisplayComponent";
+import InfoCard from "./InfoCard";
 
-const containerStyle = {
-  background: "#1a73e8",
-  top: "0",
-  left: "0",
+const layoutStyle = {
+  display: "flex",
+  height: "100vh",
   width: "100%",
-  height: "100%",
+  position: "relative",
+};
+
+const mapContainerStyle = {
+  flex: 1, // Flex-grow the map to take up available space
+  background: "#1a73e8",
+  position: "relative", // Keep the map position relative
+  zIndex: 10,
+};
+
+const sidebarStyle = {
   position: "absolute",
+  top: "100px",         // Position it from the top of the parent container
+  left: 0,
+  width: "250px",       // Fixed width for the sidebar
+  bottom: "20px",       // Add bottom spacing to avoid overflow
+  zIndex: 400,
+  padding: "20px",
+  overflowY: "auto",    // Allow scrolling if the content overflows the sidebar height
+  boxSizing: "border-box", // Include padding in height calculations
 };
 
 const initialCenter = {
@@ -86,9 +105,9 @@ const TestGoogleMaps = ({ onLoad = () => {}, onUnmount = () => {} }) => {
   }
 
   return isLoaded ? (
-    <div style={containerStyle}>
+    <div style={layoutStyle}>
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={mapContainerStyle}
         center={initialCenter}
         zoom={10}
         onLoad={handleMapLoad}
@@ -100,137 +119,19 @@ const TestGoogleMaps = ({ onLoad = () => {}, onUnmount = () => {} }) => {
         }}
       />
       {streetViewVisible && (
-        <div
-          className="relative"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: 15,
-            pointerEvents: "none",
-          }}
-        >
-          {/* Overlay Images */}
-          <img
-            src={CO2Img}
-            alt="CO2 View"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              opacity: 0.5,
-              pointerEvents: "none",
-            }}
-          />
-
-          <img
-            src={NO2Img}
-            alt="NO2 View"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              opacity: 0.5,
-              pointerEvents: "none",
-            }}
-          />
-
-          <img
-            src={O3Img}
-            alt="O3 View"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              opacity: 0.5,
-              pointerEvents: "none",
-            }}
-          />
-
-          <img
-            src={PM10Img}
-            alt="PM10 View"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              opacity: 0.5,
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* Pollutant Information and Health Recommendations */}
-          <div
-            className="grid grid-cols-1 gap-4"
-            style={{
-              position: "relative",
-              zIndex: 20,
-              padding: "20px",
-              pointerEvents: "auto",
-            }}
-          >
-            {airQualityData.pollutants &&
-              airQualityData.pollutants.map((pollutant) => (
-                <div
-                  key={pollutant.code}
-                  className="p-4 bg-white rounded-lg shadow-md"
-                >
-                  <h4 className="text-xl font-bold text-black">
-                    {pollutant.displayName} ({pollutant.fullName})
-                  </h4>
-                  <p className="text-sm text-gray-800">
-                    Concentration: {pollutant.concentration.value}{" "}
-                    {pollutant.concentration.units}
-                  </p>
-                  <p className="text-sm text-gray-800">
-                    Sources: {pollutant.additionalInfo.sources}
-                  </p>
-                  <p className="text-sm text-gray-800">
-                    Effects: {pollutant.additionalInfo.effects}
-                  </p>
-                </div>
-              ))}
-
-            {airQualityData.healthRecommendations && (
-              <div className="p-4 bg-blue-100 rounded-lg shadow-md mt-4">
-                <h4 className="text-xl font-bold text-blue-800">
-                  Health Recommendations:
-                </h4>
-                <p className="text-sm text-blue-700">
-                  General Population:{" "}
-                  {airQualityData.healthRecommendations.generalPopulation}
-                </p>
-                <p className="text-sm text-blue-700">
-                  Elderly: {airQualityData.healthRecommendations.elderly}
-                </p>
-                <p className="text-sm text-blue-700">
-                  People with Lung Disease:{" "}
-                  {airQualityData.healthRecommendations.lungDiseasePopulation}
-                </p>
-              </div>
+        <>
+          <div style={sidebarStyle}>
+            {airQualityData.pollutants && (
+              <PollutantDisplayComponent pollutants={airQualityData.pollutants} />
             )}
-
-            <div className="p-4 bg-white rounded-lg shadow-md mt-4">
-              <p className="text-sm text-gray-800">
-                Data retrieved on:{" "}
-                {new Date(airQualityData.dateTime).toLocaleString()}
-              </p>
-              <p className="text-sm text-gray-800">
-                Region Code: {airQualityData.regionCode.toUpperCase()}
-              </p>
-            </div>
           </div>
-        </div>
+
+          {/* <div className="flex flex-rows-2 flex-cols-3 justify-items-center absolute bottom-[16px] left-[250px] right-[250px] h-80 p-5 z-30">
+            {console.log("HEalinfo: ", airQualityData.healthRecommendations)}
+            {airQualityData.healthRecommendations && (
+              <InfoCard healthInformation={airQualityData.healthRecommendations} />)}
+          </div> */}
+        </>
       )}
     </div>
   ) : (
