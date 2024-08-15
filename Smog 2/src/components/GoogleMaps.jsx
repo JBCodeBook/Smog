@@ -16,22 +16,20 @@ const layoutStyle = {
 };
 
 const mapContainerStyle = {
-  flex: 1, // Flex-grow the map to take up available space
+  flex: 1,
   background: "#1a73e8",
-  position: "relative", // Keep the map position relative
-  zIndex: 10,
+  position: "relative",
+  display: "flex",
 };
 
 const sidebarStyle = {
-  position: "absolute",
-  top: "100px",         // Position it from the top of the parent container
-  left: 0,
-  width: "250px",       // Fixed width for the sidebar
-  bottom: "20px",       // Add bottom spacing to avoid overflow
-  zIndex: 400,
+  width: "300px",       // Set a width for the sidebar
+  height: "100%",       // Sidebar takes full height of its parent container
   padding: "20px",
-  overflowY: "auto",    // Allow scrolling if the content overflows the sidebar height
-  boxSizing: "border-box", // Include padding in height calculations
+  overflowY: "auto",    // Allow scrolling if the content overflows
+  backgroundColor: "rgba(255, 255, 255, 0.9)", // Light background with transparency
+  boxSizing: "border-box", // Include padding in width calculations
+  zIndex: 10,           // Ensure the sidebar is above the map content
 };
 
 const initialCenter = {
@@ -106,33 +104,27 @@ const TestGoogleMaps = ({ onLoad = () => {}, onUnmount = () => {} }) => {
 
   return isLoaded ? (
     <div style={layoutStyle}>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        center={initialCenter}
-        zoom={10}
-        onLoad={handleMapLoad}
-        onUnmount={onUnmount}
-        onClick={handleMapClick}
-        options={{
-          streetViewControl: true,
-          controlSize: 75,
-        }}
-      />
-      {streetViewVisible && (
-        <>
+      <div style={mapContainerStyle}>
+        <GoogleMap
+          mapContainerStyle={{ flex: 1 }}
+          center={initialCenter}
+          zoom={10}
+          onLoad={handleMapLoad}
+          onUnmount={onUnmount}
+          onClick={handleMapClick}
+          options={{
+            streetViewControl: true,
+            controlSize: 75,
+          }}
+        />
+        {streetViewVisible && (
           <div style={sidebarStyle}>
             {airQualityData.pollutants && (
               <PollutantDisplayComponent pollutants={airQualityData.pollutants} />
             )}
           </div>
-
-          {/* <div className="flex flex-rows-2 flex-cols-3 justify-items-center absolute bottom-[16px] left-[250px] right-[250px] h-80 p-5 z-30">
-            {console.log("HEalinfo: ", airQualityData.healthRecommendations)}
-            {airQualityData.healthRecommendations && (
-              <InfoCard healthInformation={airQualityData.healthRecommendations} />)}
-          </div> */}
-        </>
-      )}
+        )}
+      </div>
     </div>
   ) : (
     <div>Loading map...</div>
