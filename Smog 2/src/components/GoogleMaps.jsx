@@ -18,13 +18,13 @@ const mapContainerStyle = {
 };
 
 const sidebarStyle = {
-  width: "300px",       // Set a width for the sidebar
-  height: "100%",       // Sidebar takes full height of its parent container
+  width: "300px",       
+  height: "100%",       
   padding: "20px",
-  overflowY: "auto",    // Allow scrolling if the content overflows
-  backgroundColor: "rgba(255, 255, 255, 0.9)", // Light background with transparency
-  boxSizing: "border-box", // Include padding in width calculations
-  zIndex: 10,           // Ensure the sidebar is above the map content
+  overflowY: "auto",    
+  backgroundColor: "rgba(255, 255, 255, 0.9)", 
+  boxSizing: "border-box", 
+  zIndex: 10,           
 };
 
 const initialCenter = {
