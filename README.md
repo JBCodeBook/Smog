@@ -1,6 +1,6 @@
 # Smog
 
-![License](https://img.shields.io/github/license/JBCodeBook/Smog)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Issues](https://img.shields.io/github/issues/JBCodeBook/Smog)
 ![Forks](https://img.shields.io/github/forks/JBCodeBook/Smog)
 ![Stars](https://img.shields.io/github/stars/JBCodeBook/Smog)
