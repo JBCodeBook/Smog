@@ -5,6 +5,8 @@
 ![Forks](https://img.shields.io/github/forks/JBCodeBook/Smog)
 ![Stars](https://img.shields.io/github/stars/JBCodeBook/Smog)
 
+![Smog Preview](Smog%202/src/assets/Preview.png)  <!-- This is the image preview -->
+
 ## Table of Contents
 
 - [About](#about)
