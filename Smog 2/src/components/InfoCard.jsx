@@ -1,4 +1,4 @@
-const InfoCard = ({healthInformation}) => { // Added healthInformation prop
+const InfoCard = ({healthInformation}) => { 
 
     const backgroundImageStyle = {
         backgroundImage: "url('https://wallpapercave.com/wp/wp6689710.jpg')",
@@ -27,12 +27,6 @@ const InfoCard = ({healthInformation}) => { // Added healthInformation prop
                                     <p>
                                         {healthInformation.generalPopulation}
                                     </p>
-                                    {/* {healthInformation.map((data, index) => ( // Added dynamic rendering with .map()
-                                        <p key={index} className="text-white text-xs md:text-sm lg:text-xl mb-4"> 
-                                            {data.generalPopulation} 
-                                        </p>
-                                    ))
-                                    } */}
 
 
                                     <div className="bottom-0 absolute p-2 right-0">

@@ -1,12 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import CO2Img from "../assets/CO2.png";
-import NO2Img from "../assets/NO2.png";
-import O3Img from "../assets/O3.png";
-import PM10Img from "../assets/PM10.png";
 import useFetchAirQualityData from "./useFetchAirQualityData";
 import PollutantDisplayComponent from "./PollutantDisplayComponent";
-import InfoCard from "./InfoCard";
 
 const layoutStyle = {
   display: "flex",

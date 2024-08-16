@@ -8,16 +8,14 @@ import {
   TableCell,
 } from "@nextui-org/react";
 
-// Define your columns
 const columns = [
   { key: "code", label: "Pollutant" },
   { key: "value", label: "Value" },
 ];
 
 export default function PollutantsTable({ pollutants }) {
-  // Dynamically generate rows from the pollutants prop
   const rows = pollutants.map((pollutant) => ({
-    key: pollutant.code, // Unique key for each row
+    key: pollutant.code,
     code: pollutant.code,
     value: pollutant.concentration.value
   }));

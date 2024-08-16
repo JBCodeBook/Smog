@@ -4,7 +4,6 @@ function CustomModal({ closeModal, dataContainer }) {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    // Set focus to the modal when it opens
     if (modalRef.current) {
       modalRef.current.focus();
     }
@@ -67,7 +66,6 @@ function CustomModal({ closeModal, dataContainer }) {
             </p>
           </div>
           <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-            {/* You can add footer content here if needed */}
           </div>
         </div>
       </div>

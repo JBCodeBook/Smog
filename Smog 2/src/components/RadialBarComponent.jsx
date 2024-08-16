@@ -5,7 +5,6 @@ class RadarChart extends Component {
   constructor(props) {
     super(props);
 
-    // Extracting labels and values from the pollutants prop
     const labels = props.pollutants.map(pollutant => pollutant.displayName);
     const values = props.pollutants.map(pollutant => pollutant.concentration.value);
 
